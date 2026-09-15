@@ -199,6 +199,16 @@
 					{/if}
 				</div>
 
+				<!-- 日付選択 -->
+				<div class="px-4 py-2 border-b flex items-center gap-3 bg-gray-50">
+					<span class="text-sm text-gray-600">日付</span>
+					<input
+						type="date"
+						bind:value={current.billDate}
+						class="ml-auto border rounded px-2 py-1 text-sm text-gray-800"
+					/>
+				</div>
+
 				<!-- 客数入力 -->
 				<div class="px-4 py-2 border-b flex items-center gap-3 bg-gray-50">
 					<span class="text-sm text-gray-600">客数</span>

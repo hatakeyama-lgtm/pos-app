@@ -14,6 +14,7 @@ export interface Bill {
 	id: string;
 	name: string;
 	customerCount: number;
+	billDate: string;
 	items: CartItem[];
 	createdAt: string;
 }
@@ -63,7 +64,8 @@ export function activeBill(): Bill | undefined {
 export function newBill() {
 	const id = Date.now().toString();
 	const num = bills.list.length + 1;
-	bills.list.push({ id, name: `伝票 ${num}`, customerCount: 1, items: [], createdAt: new Date().toISOString() });
+	const today = new Date().toLocaleDateString('sv-SE'); // YYYY-MM-DD
+	bills.list.push({ id, name: `伝票 ${num}`, customerCount: 1, billDate: today, items: [], createdAt: new Date().toISOString() });
 	bills.activeId = id;
 }
 
@@ -117,7 +119,7 @@ export function checkout(bill: Bill, paid: number): Transaction {
 		total,
 		paid,
 		change: paid - total,
-		date: new Date().toISOString()
+		date: new Date(bill.billDate ?? new Date().toLocaleDateString('sv-SE')).toISOString()
 	};
 	transactions.list.unshift(tx);
 	localStorage.setItem('pos_transactions', JSON.stringify(transactions.list));
